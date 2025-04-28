@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redesigned Craigslist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu,
+    .submenu:hover .submenu-menu,
+    .submenu:focus-within .submenu-menu {
+      display: block;
+    }
+    .zoom-in {
+      transition: transform 0.2s ease-in-out;
+    }
+    .zoom-in:hover {
+      transform: scale(1.1);
+    }
+    .nav-links {
+      display: flex;
+    }
+    dialog {
+      max-width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 4rem;
+        left: 0;
+        right: 0;
+        background-color: #3b82f6;
+        padding: 1rem;
+        z-index: 10;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .dropdown-menu,
+      .submenu-menu {
+        position: static;
+        box-shadow: none;
+        background-color: #e5e7eb;
+      }
+      .submenu-menu {
+        margin-left: 1rem;
+      }
+      dialog {
+        width: 95vw;
+        padding: 0.5rem;
+      }
+      dialog form {
+        font-size: 0.9rem;
+      }
+    }
+    @media (max-width: 576px) {
+      .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      input, select, textarea {
+        font-size: 0.875rem;
+      }
+      .grid > div {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-blue-600 text-white p-4 flex flex-wrap justify-between items-center">
+    <div class="flex items-center space-x-4">
+      <span class="text-xl font-bold">🌟Craigslist</span>
+    </div>
+    <div class="flex flex-wrap gap-2 items-center mt-2 md:mt-0">
+      <button id="hamburger" class="md:hidden text-2xl focus:outline-none">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Location</span>
+      </div>
+      <input type="text" placeholder="Search..." class="p-2 text-black rounded border w-full sm:w-auto">
+      <div class="relative">
+        <button class="p-2 bg-white text-black rounded">English</button>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg">
+          <a href="#" class="block p-2">Spanish</a>
+          <a href="#" class="block p-2">French</a>
+        </div>
+      </div>
+      <div>
+        <dialog id="favDialog">
+          <main class="p-6">
+            <h2 class="text-2xl font-bold mb-4">Post an Advertisement</h2>
+            <form class="space-y-6">
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="title">Posting/Job Title *</label>
+                <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="title" name="title" type="text" required/>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="location">Job Posting Location Details *</label>
+                <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="location" name="location" type="text" required/>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="job-type">Job Type *</label>
+                <select class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="job-type" name="job-type">
+                  <option>Full-time</option>
+                  <option>Part-time</option>
+                  <option>Contract</option>
+                  <option>Temporary</option>
+                  <option>Internship</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="schedule">Schedule *</label>
+                <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="schedule" name="schedule" type="text" required/>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="start-date">Planned Start Date</label>
+                <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="start-date" name="start-date" type="date"/>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="description">Job Description *</label>
+                <textarea class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="description" name="description" rows="4" required></textarea>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="requirements">Job Requirements</label>
+                <textarea class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="requirements" name="requirements" rows="4"></textarea>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="salary">Salary Range</label>
+                <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="salary" name="salary" type="text"/>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="contact-email">Contact Email</label>
+                <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="contact-email" name="contact-email" type="email"/>
+              </div>
+              <div>
+                <label class="block text-lg font-medium text-gray-700" for="contact-phone">Contact Phone</label>
+                <input class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="contact-phone" name="contact-phone" type="tel"/>
+              </div>
+              <div class="flex justify-end gap-2">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" onclick="showMessage()" type="submit">Post Advertisement</button>
+                <button class="bg-gray-300 text-black px-4 py-2 rounded-md" onclick="document.getElementById('favDialog').close()">Go back</button>
+              </div>
+            </form>
+          </main>
+        </dialog>
+        <button class="bg-yellow-500 text-black p-2 rounded" id="showDialog">Post an Ad</button>
+      </div>
+      <i class="fas fa-user-circle text-2xl"></i>
+    </div>
+  </header>
+
+  <nav class="bg-blue-500 text-white p-2">
+    <div class="container mx-auto nav-links justify-around">
+      <div class="dropdown relative">
+        <div class="cursor-box zoom-in">
+          <button class="p-2">Community</button>
+        </div>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg cursor-box zoom-in">
+          <a class="block p-2 cursor-box zoom-in" href="{% url 'event' %}">Events</a>
+          <a class="block p-2 cursor-box zoom-in" href="/classes">Classes</a>
+          <div class="submenu relative">
+            <button class="block p-2 cursor-box zoom-in">More -></button>
+            <div class="submenu-menu absolute left-full top-0 hidden bg-white text-black p-2 rounded shadow-lg">
+              <a class="block p-2 cursor-box zoom-in" href="/groups">Groups</a>
+              <a class="block p-2 cursor-box zoom-in" href="/volunteering">Volunteering</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dropdown relative">
+        <div class="cursor-box zoom-in">
+          <button class="p-2">Housing</button>
+        </div>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg">
+          <a class="block p-2 cursor-box zoom-in" href="/Apartments">Apartments</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Houses">Houses</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Rooms">Rooms</a>
+        </div>
+      </div>
+      <div class="dropdown relative">
+        <div class="cursor-box zoom-in">
+          <button class="p-2">Jobs</button>
+        </div>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg">
+          <a class="block p-2 cursor-box zoom-in" href="/Engineering">Engineering</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Healthcare">Healthcare</a>
+          <a class="block p-2 cursor-box zoom-in" href="/sales">Sales</a>
+        </div>
+      </div>
+      <div class="dropdown relative">
+        <div class="cursor-box zoom-in">
+          <button class="p-2">Services</button>
+        </div>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg">
+          <a class="block p-2 cursor-box zoom-in" href="/Automotive">Automotive</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Beauty">Beauty</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Computer">Computer</a>
+        </div>
+      </div>
+      <div class="dropdown relative">
+        <div class="cursor-box zoom-in">
+          <button class="p-2">For Sale</button>
+        </div>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg">
+          <a class="block p-2 cursor-box zoom-in" href="/Electronics">Electronics</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Furniture">Furniture</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Clothing">Clothing</a>
+        </div>
+      </div>
+      <div class="dropdown relative">
+        <div class="cursor-box zoom-in">
+          <button class="p-2">Discussion Forum</button>
+        </div>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg">
+          <a class="block p-2 cursor-box zoom-in" href="/General">General</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Tech">Tech</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Lifestyle">Lifestyle</a>
+        </div>
+      </div>
+      <div class="dropdown relative">
+        <div class="cursor-box zoom-in">
+          <button class="p-2">About Us</button>
+        </div>
+        <div class="dropdown-menu absolute hidden bg-white text-black p-2 rounded shadow-lg">
+          <a class="block p-2 cursor-box zoom-in" href="/Company_info">Company info</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Career">Careers</a>
+          <a class="block p-2 cursor-box zoom-in" href="/Contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto mt-4 px-2">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-4">
+      <input type="text" placeholder="Search jobs..." class="p-2 w-full sm:w-auto flex-grow rounded border">
+      <button class="bg-blue-600 text-white p-2 rounded">Filter</button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-bold">Software Engineer</h3>
+        <p>Company: Tech Corp</p>
+        <p>Location: San Francisco, CA</p>
+        <p>Salary: $120,000 - $140,000</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-bold">Mechanical Engineer</h3>
+        <p>Company: Auto Inc</p>
+        <p>Location: Detroit, MI</p>
+        <p>Salary: $80,000 - $100,000</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-bold">Civil Engineer</h3>
+        <p>Company: BuildIt</p>
+        <p>Location: New York, NY</p>
+        <p>Salary: $90,000 - $110,000</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-bold">Electrical Engineer</h3>
+        <p>Company: PowerGrid</p>
+        <p>Location: Houston, TX</p>
+        <p>Salary: $85,000 - $105,000</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-bold">Chemical Engineer</h3>
+        <p>Company: ChemWorks</p>
+        <p>Location: Los Angeles, CA</p>
+        <p>Salary: $95,000 - $115,000</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-xl font-bold">Aerospace Engineer</h3>
+        <p>Company: SkyHigh</p>
+        <p>Location: Seattle, WA</p>
+        <p>Salary: $110,000 - $130,000</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-blue-600 text-white text-center p-4 mt-4">
+    <p>© 2025 Craigslist. All rights reserved.</p>
+    <button id="accessibility-button" class="mt-2 px-4 py-2 bg-white text-blue-600 rounded" onclick="toggleAccessibility()">Accessibility Options</button>
+    <div id="accessibility-options" class="hidden mt-2">
+      <ul class="flex flex-col sm:flex-row justify-center gap-2">
+        <li><button class="px-4 py-2 bg-white text-blue-600 rounded" onclick="changeContrast()">High Contrast</button></li>
+        <li><button class="px-4 py-2 bg-white text-blue-600 rounded" onclick="increaseFontSize()">Increase Font Size</button></li>
+        <li><button class="px-4 py-2 bg-white text-blue-600 rounded" onclick="decreaseFontSize()">Decrease Font Size</button></li>
+        <li><button class="px-4 py-2 bg-white text-blue-600 rounded" onclick="readText()">Read Text</button></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="static\script.js"></script>
+</body>
+</html>

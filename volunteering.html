@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Craigslists Volunteering</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .search-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .search-bar input,
+    .search-bar select {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .event-card {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .event-card h3 {
+      margin-top: 0;
+    }
+    .event-card p {
+      margin: 5px 0;
+    }
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 40px 0;
+    }
+    .category {
+      background-color: #e2e2e2;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .post-event {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .post-event a {
+      background-color: #4a4a4a;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-blue-600 text-white p-4 flex flex-wrap justify-between items-center">
+    <h1><a href="{% url 'Home' %}" style="color: black; text-decoration: none;">🌟Craigslist Volunteering</a></h1>
+    <!-- <h1>🌟Craigslist Events</h1>
+    <a href = "{% url 'Home' %}"> Go Back</a> -->
+    <p style="text-align: center; font-weight: bold; text-decoration: underline;">
+      Discover local happenings near you.
+    </p>
+      </header>
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search events...">
+      <select>
+        <option>All Locations</option>
+        <option>New York, NY</option>
+        <option>Los Angeles, CA</option>
+        <option>Chicago, IL</option>
+      </select>
+      <input type="date">
+    </div>
+
+    <div class="event-card">
+      <h3>Sunset Park Flea Market</h3>
+      <p>📍 Brooklyn, NY • 📅 April 21, 2025</p>
+      <p>🛍️ Vintage clothing, vinyl, crafts, and street food.</p>
+    </div>
+
+    <div class="event-card">
+      <h3>Outdoor Movie Night: <em>The Princess Bride</em></h3>
+      <p>📍 Los Angeles, CA • 📅 April 20, 2025</p>
+      <p>🎬 Free movie in the park with food trucks. Bring a blanket!</p>
+    </div>
+
+    <div class="event-card">
+      <h3>Freelancers' Coffee Meetup</h3>
+      <p>📍 Seattle, WA • 📅 April 22, 2025</p>
+      <p>☕ Casual networking for local creatives and remote workers.</p>
+    </div>
+
+    <div class="categories">
+      <div class="category">🛍️ Markets & Fairs</div>
+      <div class="category">🎶 Live Music</div>
+      <div class="category">🎨 Arts & Exhibits</div>
+      <div class="category">🍔 Food & Drink</div>
+      <div class="category">🎤 Talks & Meetups</div>
+      <div class="category">🎬 Film & Entertainment</div>
+      <div class="category">🏃‍♀️ Fitness & Outdoors</div>
+    </div>
+
+    <div class="post-event">
+      <p>Hosting something cool?</p>
+      <a href="#">➕ Post Your Event</a>
+    </div>
+  </div>
+</body>
+</html>
